@@ -2,7 +2,7 @@ import { Builder, By, until } from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 
 async function login(driver) {
-    console.log('Iniciando sesión..');
+    console.log('Iniciando sesión sin credenciales..');
     // Esperar a que el botón "Login" esté presente
     await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Login')]")), 100000);
     // Hacer clic en el botón "Login"
@@ -33,6 +33,38 @@ async function handleAlertLogin(driver) {
     }
 }
 
+async function loginExiste(driver) {
+    console.log('Iniciando sesión con credenciales..');
+    // Esperar a que el botón "Login" esté presente
+    await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Login')]")), 100000);
+    // Hacer clic en el botón "Login"
+    await driver.findElement(By.xpath("//button[contains(text(), 'Login')]")).click();
+    // Continuar con el resto de las acciones de inicio de sesión
+    await driver.findElement(By.id('loginEmail')).sendKeys('kevina.moralesc@uqvirtual.edu.co');
+    await driver.findElement(By.id('loginPassword')).sendKeys('123456789');
+    await driver.findElement(By.xpath("//button[contains(text(), 'Ingresar')]")).click();
+}
+
+async function handleAlertLoginExiste(driver) {
+    try {
+        await driver.wait(until.elementLocated(By.id('swal2-html-container')), 10000);
+        let alertElement = await driver.findElement(By.id('swal2-html-container'));
+        let alertText = await alertElement.getText();
+        console.log('Login con credenciales credenciales:');
+        console.log('Texto de la alerta:', alertText);
+
+        if (alertText === 'El usuario con correo kevina.moralesc@uqvirtual.edu.co ha iniciado sesion correctamente') {
+            console.log('La alerta contiene el texto esperado.');
+        } else {
+            console.error('La alerta no contiene el texto esperado.');
+            process.exit(1); // Marcar como fallida la acción
+        }
+    } catch (e) {
+        console.log('No se encontró ninguna alerta.');
+        process.exit(1); // Marcar como fallida la acción
+    }
+}
+
 async function handleAlertRegistro(driver) {
     try {
         await driver.wait(until.elementLocated(By.id('swal2-html-container')), 10000);
@@ -52,11 +84,11 @@ async function handleAlertRegistro(driver) {
 }
 async function Registro(driver) {
     console.log('Resgistro valido ...');
-    // Esperar a que el botón "Login" esté presente
+    // Esperar a que el botón "Sign up" esté presente
     await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Sign up')]")), 10000);
     // Hacer clic en el botón "Sign up"
     await driver.findElement(By.xpath("//button[contains(text(), 'Sign up')]")).click();
-    // Continuar con el resto de las acciones de inicio de sesión
+    // Continuar con el resto de las acciones de registro
     await driver.findElement(By.id('nombre')).sendKeys('Miguel ');
     await driver.findElement(By.id('apellido')).sendKeys('Vargas');
     await driver.findElement(By.id('id')).sendKeys('1005087569889');
@@ -71,11 +103,11 @@ async function Registro(driver) {
 
 async function RegistroExistente(driver) {
     console.log('Resgistro Existente ...');
-    // Esperar a que el botón "Login" esté presente
+    // Esperar a que el botón "Sign up" esté presente
     await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Sign up')]")), 10000);
-    // Hacer clic en el botón "Login"
+    // Hacer clic en el botón "Sign up"
     await driver.findElement(By.xpath("//button[contains(text(), 'Sign up')]")).click();
-    // Continuar con el resto de las acciones de inicio de sesión
+    // Continuar con el resto de las acciones de registro
     await driver.findElement(By.id('nombre')).sendKeys('kevin Andres ');
     await driver.findElement(By.id('apellido')).sendKeys('Morales Castaño');
     await driver.findElement(By.id('id')).sendKeys('1005087691');
@@ -131,6 +163,10 @@ async function runSmokeTest() {
         await driver.wait(until.elementLocated(By.css('body')), 10000);
         await Registro(driver);
         await handleAlertRegistro(driver);
+        await driver.get('https://frontpruebahumo-production.up.railway.app/');
+        await driver.wait(until.elementLocated(By.css('body')), 10000);
+        await loginExiste(driver);
+        await handleAlertLoginExiste(driver);
     } catch (error) {
         console.error('Ocurrió un error durante la ejecución de la prueba:', error);
     } finally {
