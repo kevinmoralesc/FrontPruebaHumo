@@ -61,7 +61,7 @@ async function Registro(driver) {
     await driver.findElement(By.id('apellido')).sendKeys('Vargas');
     await driver.findElement(By.id('id')).sendKeys('10050875698');
     await driver.findElement(By.id('telefono')).sendKeys('3015402418');
-    await driver.findElement(By.id('email')).sendKeys('miguel@uqvirtual.edu.co');
+    await driver.findElement(By.id('email')).sendKeys('miguela@uqvirtual.edu.co');
     await driver.findElement(By.id('password')).sendKeys('123456789');
     await driver.findElement(By.id('cpassword')).sendKeys('123456789');
     await driver.findElement(By.xpath("//button[contains(text(), 'Registrarse')]")).click();
