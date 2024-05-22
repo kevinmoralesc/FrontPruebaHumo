@@ -38,7 +38,7 @@ async function handleAlertRegistro(driver) {
         await driver.wait(until.elementLocated(By.id('swal2-html-container')), 10000);
         let alertElement = await driver.findElement(By.id('swal2-html-container'));
         let alertText = await alertElement.getText();
-        console.log('Registro con datos Correctos:');
+        console.log('registro con datos Correctos:');
         console.log('Texto de la alerta:', alertText);
 
         if (alertText === 'El usuario con correo kevina.moralesc@uqvirtual.edu.co ha sido registrado correctamente') {
