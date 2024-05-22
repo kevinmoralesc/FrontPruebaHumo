@@ -44,28 +44,3 @@ jobs:
       - name: Crear y ejecutar prueba de humo
         run: node smoke_test.js
 
-      - name: Configurar Git
-        run: |
-            git config --global user.email "kevina.moralesc@uqvirtual.edu.co"
-            git config --global user.name "kevinmoralesc"
-
-            - name: Revertir el commit si la prueba falla
-              if: ${{ failure() }}
-              env:
-                GH_TOKEN: ${{ secrets.GH_TOKEN }}
-              run: |
-                # Obtener el hash del commit a revertir
-                COMMIT_HASH=$(git rev-parse HEAD)
-                
-                # Crear una nueva rama temporal
-                git checkout -b temporary-branch
-                
-                # Revertir el commit
-                git revert --no-commit $COMMIT_HASH
-                git commit -m "Revertir commit $COMMIT_HASH"
-                
-                # Forzar el push de la rama temporal, sobrescribiendo la rama principal
-                git push --force https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} temporary-branch:main
-                
-                # Eliminar la rama temporal
-                git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} --delete temporary-branch
