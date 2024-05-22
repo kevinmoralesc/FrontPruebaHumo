@@ -176,7 +176,7 @@ async function runSmokeTest() {
         await loginExiste(driver);
         await handleAlertLoginExiste(driver);
     } catch (error) {
-        console.error('Ocurrió un error durante la ejecución de la prueba:', error);
+        console.error('ocurrió un error durante la ejecución de la prueba:', error);
     } finally {
         await driver.quit();
         process.exit(er); // Marcar como fallida la acción
