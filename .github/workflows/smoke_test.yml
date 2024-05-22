@@ -44,12 +44,7 @@ jobs:
       - name: Crear y ejecutar prueba de humo
         run: node smoke_test.js
 
-      #Da permisos al script pre-push
-      - name: Dar permisos al script pre-push
+      - name: Revertir cambios locales si la prueba falla
         if: ${{ failure() }}
-        run: chmod +x pre-push.sh
-
-      # ejecuta el script pre-push solo si la prueba de humo falla
-      - name: Ejecutar script pre-push si la prueba de humo falla
-        if: ${{ failure() }}
-        run: ./pre-push.sh
+        run: |
+          git reset --hard HEAD~1
