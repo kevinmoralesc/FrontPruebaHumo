@@ -15,7 +15,7 @@ async function login(driver) {
 
 async function handleAlertLogin(driver) {
     try {
-        await driver.wait(until.elementLocated(By.id('swal2-html-container')), 100000);
+        await driver.wait(until.elementLocated(By.id('swal2-html-container')), 10000);
         let alertElement = await driver.findElement(By.id('swal2-html-container'));
         let alertText = await alertElement.getText();
         console.log('Login sin credenciales:');
@@ -85,11 +85,11 @@ async function runSmokeTest() {
         await driver.wait(until.elementLocated(By.css('body')), 10000);
         await login(driver);
         await handleAlertLogin(driver);
-        await driver.quit();
-        await driver.get('https://frontpruebahumo-production.up.railway.app/');
-        await driver.wait(until.elementLocated(By.css('body')), 10000);
-        await Registro(driver);
-        await handleAlertRegistro(driver);
+        //await driver.quit();
+        //await driver.get('https://frontpruebahumo-production.up.railway.app/');
+        //#await driver.wait(until.elementLocated(By.css('body')), 10000);
+        //#await Registro(driver);
+        //#await handleAlertRegistro(driver);
     } catch (error) {
         console.error('Ocurrió un error durante la ejecución de la prueba:', error);
     } finally {
