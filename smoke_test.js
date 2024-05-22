@@ -1,6 +1,6 @@
 import { Builder, By, until } from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
-
+let er = 0;
 async function login(driver) {
     console.log('Iniciando sesión sin credenciales..');
     // Esperar a que el botón "Login" esté presente
@@ -24,12 +24,14 @@ async function handleAlertLogin(driver) {
         if (alertText === 'No se encontro el usuario, revisalo o sino estas registrado, registrate') {
             console.log('La alerta contiene el texto esperado.');
         } else {
+            er = 1;
             console.error('La alerta no contiene el texto esperado.');
-            process.exit(1); // Marcar como fallida la acción
+
         }
     } catch (e) {
+        er = 1;
         console.log('No se encontró ninguna alerta.');
-        process.exit(1); // Marcar como fallida la acción
+
     }
 }
 
@@ -57,11 +59,13 @@ async function handleAlertLoginExiste(driver) {
             console.log('La alerta contiene el texto esperado.');
         } else {
             console.error('La alerta no contiene el texto esperado.');
-            process.exit(1); // Marcar como fallida la acción
+
+            er = 1;
         }
     } catch (e) {
+        er = 1;
         console.log('No se encontró ninguna alerta.');
-        process.exit(1); // Marcar como fallida la acción
+
     }
 }
 
@@ -76,9 +80,11 @@ async function handleAlertRegistro(driver) {
         if (alertText === 'El usuario con correo miguelav@uqvirtual.edu.co ha sido registrado correctamente') {
             console.log('La alerta contiene el texto esperado.');
         } else {
+            er = 1;
             console.error('La alerta no contiene el texto esperado.');
         }
     } catch (e) {
+        er = 1;
         console.log('No se encontró ninguna alerta.');
     }
 }
@@ -129,9 +135,11 @@ async function handleAlertRegistroExistente(driver) {
         if (alertText === 'El email ya esta registrado, verifica que este correcto o intenta con otro') {
             console.log('La alerta contiene el texto esperado.');
         } else {
+            er = 1;
             console.error('La alerta no contiene el texto esperado.');
         }
     } catch (e) {
+        er = 1;
         console.log('No se encontró ninguna alerta.');
     }
 }
@@ -171,6 +179,7 @@ async function runSmokeTest() {
         console.error('Ocurrió un error durante la ejecución de la prueba:', error);
     } finally {
         await driver.quit();
+        process.exit(er); // Marcar como fallida la acción
     }
 }
 
