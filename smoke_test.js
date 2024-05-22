@@ -54,13 +54,13 @@ async function Registro(driver) {
     console.log('Resgistro valido ...');
     // Esperar a que el botón "Login" esté presente
     await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Sign up')]")), 10000);
-    // Hacer clic en el botón "Login"
+    // Hacer clic en el botón "Sign up"
     await driver.findElement(By.xpath("//button[contains(text(), 'Sign up')]")).click();
     // Continuar con el resto de las acciones de inicio de sesión
     await driver.findElement(By.id('nombre')).sendKeys('Miguel ');
     await driver.findElement(By.id('apellido')).sendKeys('Vargas');
     await driver.findElement(By.id('id')).sendKeys('100508756');
-    await driver.findElement(By.id('telefono')).sendKeys('3015402410');
+    await driver.findElement(By.id('telefono')).sendKeys('3015402418');
     await driver.findElement(By.id('email')).sendKeys('miguel@uqvirtual.edu.co');
     await driver.findElement(By.id('password')).sendKeys('123456789');
     await driver.findElement(By.id('cpassword')).sendKeys('123456789');
@@ -70,7 +70,7 @@ async function Registro(driver) {
 
 
 async function RegistroExistente(driver) {
-    console.log('Resgistro Existente');
+    console.log('Resgistro Existente ...');
     // Esperar a que el botón "Login" esté presente
     await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Sign up')]")), 10000);
     // Hacer clic en el botón "Login"
