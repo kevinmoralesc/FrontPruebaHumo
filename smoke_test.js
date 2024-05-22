@@ -18,7 +18,7 @@ async function handleAlertLogin(driver) {
         await driver.wait(until.elementLocated(By.id('swal2-html-container')), 100000);
         let alertElement = await driver.findElement(By.id('swal2-html-container'));
         let alertText = await alertElement.getText();
-        console.log('Login sin credenciales:');
+        console.log('login sin credenciales:');
         console.log('Texto de la alerta:', alertText);
 
         if (alertText === 'No se encontro el usuario, revisalo o sino estas registrado, registrate') {
