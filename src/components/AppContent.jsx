@@ -21,7 +21,7 @@ const AppContent = () => {
     };
     
     const onClickRegisterApp = () => {
-        setActive("register");
+        setActive("registera");
         setComponentToShow("register");
         
     };
@@ -34,7 +34,7 @@ const AppContent = () => {
     const onLogin = (username, password) => {
         request(
             "POST",
-            "/",
+            "/login",
             {
                 login: username,
                 password: password
