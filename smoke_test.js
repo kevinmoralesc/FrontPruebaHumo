@@ -41,7 +41,7 @@ async function handleAlertRegistro(driver) {
         console.log('registro con datos Correctos:');
         console.log('Texto de la alerta:', alertText);
 
-        if (alertText === 'El usuario con correo kevina.moralesc@uqvirtual.edu.co ha sido registrado correctamente') {
+        if (alertText === 'El usuario con correo miguel@uqvirtual.edu.co ha sido registrado correctamente') {
             console.log('La alerta contiene el texto esperado.');
         } else {
             console.error('La alerta no contiene el texto esperado.');
@@ -50,10 +50,27 @@ async function handleAlertRegistro(driver) {
         console.log('No se encontró ninguna alerta.');
     }
 }
-
-
 async function Registro(driver) {
-    console.log('Resgistro...');
+    console.log('Resgistro valido ...');
+    // Esperar a que el botón "Login" esté presente
+    await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Sign up')]")), 10000);
+    // Hacer clic en el botón "Login"
+    await driver.findElement(By.xpath("//button[contains(text(), 'Sign up')]")).click();
+    // Continuar con el resto de las acciones de inicio de sesión
+    await driver.findElement(By.id('nombre')).sendKeys('Miguel ');
+    await driver.findElement(By.id('apellido')).sendKeys('Vargas');
+    await driver.findElement(By.id('id')).sendKeys('100508756');
+    await driver.findElement(By.id('telefono')).sendKeys('3015402410');
+    await driver.findElement(By.id('email')).sendKeys('miguel@uqvirtual.edu.co');
+    await driver.findElement(By.id('password')).sendKeys('123456789');
+    await driver.findElement(By.id('cpassword')).sendKeys('123456789');
+    await driver.findElement(By.xpath("//button[contains(text(), 'Registrarse')]")).click();
+}
+
+
+
+async function RegistroExistente(driver) {
+    console.log('Resgistro Existente');
     // Esperar a que el botón "Login" esté presente
     await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Sign up')]")), 10000);
     // Hacer clic en el botón "Login"
@@ -68,6 +85,27 @@ async function Registro(driver) {
     await driver.findElement(By.id('cpassword')).sendKeys('123456789');
     await driver.findElement(By.xpath("//button[contains(text(), 'Registrarse')]")).click();
 }
+
+async function handleAlertRegistroExistente(driver) {
+    try {
+        await driver.wait(until.elementLocated(By.id('swal2-html-container')), 10000);
+        let alertElement = await driver.findElement(By.id('swal2-html-container'));
+        let alertText = await alertElement.getText();
+        console.log('registro con datos Correctos:');
+        console.log('Texto de la alerta:', alertText);
+
+        if (alertText === 'El email ya esta registrado, verifica que este correcto o intenta con otro') {
+            console.log('La alerta contiene el texto esperado.');
+        } else {
+            console.error('La alerta no contiene el texto esperado.');
+        }
+    } catch (e) {
+        console.log('No se encontró ninguna alerta.');
+    }
+}
+
+
+
 
 async function runSmokeTest() {
     let options = new chrome.Options();
@@ -85,6 +123,10 @@ async function runSmokeTest() {
         await driver.wait(until.elementLocated(By.css('body')), 10000);
         await login(driver);
         await handleAlertLogin(driver);
+        await driver.get('https://frontpruebahumo-production.up.railway.app/');
+        await driver.wait(until.elementLocated(By.css('body')), 10000);
+        await RegistroExistente(driver);
+        await handleAlertRegistroExistente(driver);
         await driver.get('https://frontpruebahumo-production.up.railway.app/');
         await driver.wait(until.elementLocated(By.css('body')), 10000);
         await Registro(driver);
