@@ -36,12 +36,12 @@ async function handleAlertLogin(driver) {
 async function handleAlertRegistro(driver) {
     try {
         await driver.wait(until.elementLocated(By.id('swal2-html-container')), 10000);
-        let alertElement = await driver.findElement(By.id('swal2-html-container'));
+        let alertElement = await driver.findElement(By.id('swal2-title'));
         let alertText = await alertElement.getText();
         console.log('registro con datos Correctos:');
         console.log('Texto de la alerta:', alertText);
 
-        if (alertText === 'El usuario con correo miguel@uqvirtual.edu.co ha sido registrado correctamente') {
+        if (alertText === 'El usuario con correo miguelav@uqvirtual.edu.co ha sido registrado correctamente') {
             console.log('La alerta contiene el texto esperado.');
         } else {
             console.error('La alerta no contiene el texto esperado.');
@@ -59,9 +59,9 @@ async function Registro(driver) {
     // Continuar con el resto de las acciones de inicio de sesión
     await driver.findElement(By.id('nombre')).sendKeys('Miguel ');
     await driver.findElement(By.id('apellido')).sendKeys('Vargas');
-    await driver.findElement(By.id('id')).sendKeys('10050875698');
+    await driver.findElement(By.id('id')).sendKeys('1005087569889');
     await driver.findElement(By.id('telefono')).sendKeys('3015402418');
-    await driver.findElement(By.id('email')).sendKeys('miguela@uqvirtual.edu.co');
+    await driver.findElement(By.id('email')).sendKeys('miguelav@uqvirtual.edu.co');
     await driver.findElement(By.id('password')).sendKeys('123456789');
     await driver.findElement(By.id('cpassword')).sendKeys('123456789');
     await driver.findElement(By.xpath("//button[contains(text(), 'Registrarse')]")).click();
