@@ -85,7 +85,6 @@ async function runSmokeTest() {
         await driver.wait(until.elementLocated(By.css('body')), 10000);
         await login(driver);
         await handleAlertLogin(driver);
-        await driver.quit();
         await driver.get('https://frontpruebahumo-production.up.railway.app/');
         await driver.wait(until.elementLocated(By.css('body')), 10000);
         await Registro(driver);
