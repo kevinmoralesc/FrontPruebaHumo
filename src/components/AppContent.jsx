@@ -21,7 +21,7 @@ const AppContent = () => {
     };
     
     const onClickRegisterApp = () => {
-        setActive("registera");
+        setActive("register");
         setComponentToShow("register");
         
     };
