@@ -9,7 +9,7 @@ async function login(driver) {
     await driver.findElement(By.xpath("//button[contains(text(), 'Login')]")).click();
     // Continuar con el resto de las acciones de inicio de sesión
     await driver.findElement(By.id('loginEmail')).sendKeys('kevina.moralesc@uqvirtual.edu.co');
-    await driver.findElement(By.id('loginPassword')).sendKeys('123456789');
+    await driver.findElement(By.id('loginPassword')).sendKeys('1234567898');
     await driver.findElement(By.xpath("//button[contains(text(), 'Ingresar')]")).click();
 }
 
