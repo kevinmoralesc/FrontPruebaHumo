@@ -46,8 +46,8 @@ jobs:
 
       - name: Configurar Git
         run: |
-          git config --global user.email "tu-correo@example.com"
-          git config --global user.name "Tu Nombre"
+          git config --global user.email "kevina.moralesc@uqvirtual.edu.co"
+          git config --global user.name "kevinmoralesc"
 
       - name: Revertir el commit si la prueba falla
         if: ${{ failure() }}
