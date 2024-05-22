@@ -44,16 +44,15 @@ jobs:
       - name: Crear y ejecutar prueba de humo
         run: node smoke_test.js
 
-      - name: Configurar Git
-        run: |
-          git config --global user.email "kevina.moralesc@uqvirtual.edu.co"
-          git config --global user.name "kevinmoralesc"
-
       - name: Revertir el commit si la prueba falla
         if: ${{ failure() }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          # Configurar Git localmente
+          git config user.email "tu-correo@example.com"
+          git config user.name "Tu Nombre"
+          
           # Obtener el hash del commit a revertir
           COMMIT_HASH=$(git rev-parse HEAD)
           
