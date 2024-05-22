@@ -48,7 +48,7 @@ async function loginExiste(driver) {
 async function handleAlertLoginExiste(driver) {
     try {
         await driver.wait(until.elementLocated(By.id('swal2-html-container')), 10000);
-        let alertElement = await driver.findElement(By.id('swal2-html-container'));
+        let alertElement = await driver.findElement(By.id('swal2-title'));
         let alertText = await alertElement.getText();
         console.log('Login con credenciales credenciales:');
         console.log('Texto de la alerta:', alertText);
