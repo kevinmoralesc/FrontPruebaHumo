@@ -8,7 +8,7 @@ async function login(driver) {
     // Hacer clic en el botón "Login"
     await driver.findElement(By.xpath("//button[contains(text(), 'Login')]")).click();
     // Continuar con el resto de las acciones de inicio de sesión
-    await driver.findElement(By.id('loginEmail')).sendKeys('kevina.moralesc@uqvirtual.edu.co');
+    await driver.findElement(By.id('loginEmail')).sendKeys('kevina.moralesc@uqvirtual22.edu.co');
     await driver.findElement(By.id('loginPassword')).sendKeys('1234567898');
     await driver.findElement(By.xpath("//button[contains(text(), 'Ingresar')]")).click();
 }
@@ -85,11 +85,11 @@ async function runSmokeTest() {
         await driver.wait(until.elementLocated(By.css('body')), 10000);
         await login(driver);
         await handleAlertLogin(driver);
-        //await driver.quit();
-        //await driver.get('https://frontpruebahumo-production.up.railway.app/');
-        //#await driver.wait(until.elementLocated(By.css('body')), 10000);
-        //#await Registro(driver);
-        //#await handleAlertRegistro(driver);
+        await driver.quit();
+        await driver.get('https://frontpruebahumo-production.up.railway.app/');
+        await driver.wait(until.elementLocated(By.css('body')), 10000);
+        await Registro(driver);
+        await handleAlertRegistro(driver);
     } catch (error) {
         console.error('Ocurrió un error durante la ejecución de la prueba:', error);
     } finally {
