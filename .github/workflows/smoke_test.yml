@@ -47,4 +47,4 @@ jobs:
       - name: Revertir cambios locales si la prueba falla
         if: ${{ failure() }}
         run: |
-          git reset --hard HEAD~1
+          git reset --hard $(git log -n 2 --format="%H" | tail -n 1)
