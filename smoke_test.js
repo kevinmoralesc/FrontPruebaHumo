@@ -59,7 +59,7 @@ async function Registro(driver) {
     // Continuar con el resto de las acciones de inicio de sesión
     await driver.findElement(By.id('nombre')).sendKeys('Miguel ');
     await driver.findElement(By.id('apellido')).sendKeys('Vargas');
-    await driver.findElement(By.id('id')).sendKeys('100508756');
+    await driver.findElement(By.id('id')).sendKeys('10050875698');
     await driver.findElement(By.id('telefono')).sendKeys('3015402418');
     await driver.findElement(By.id('email')).sendKeys('miguel@uqvirtual.edu.co');
     await driver.findElement(By.id('password')).sendKeys('123456789');
